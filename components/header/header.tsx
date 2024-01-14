@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Menu from './Menu'
 
 
 export default function Header() {
@@ -10,18 +11,7 @@ export default function Header() {
                         Amazing Ecommerce
                     </Link>
 
-                    <ul className='flex'>
-                        <li>
-                            <Link href='/cart' className='btn btn-ghost rounded-btn'>
-                                Cart
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href='/login' className='btn btn-ghost rounded-btn'>
-                                Login
-                            </Link>
-                        </li>
-                    </ul>
+                   <Menu />
 
                 </div>
             </nav>
