@@ -38,17 +38,17 @@ export default function useCartService() {
     increase: (item: OrderItem) => {
       const existItem = items.find((x) => x.slug === item.slug);
 
-      const updatedItems = existItem
+      const updatedCartItems = existItem
         ? items.map((x) =>
             x.slug === item.slug
               ? { ...existItem, quantity: existItem.quantity + 1 }
               : x
           )
         : [...items, { ...item, quantity: 1 }];
-
-      calcPrice(updatedItems);
+      const { itemsPrice, taxPrice, shippingPrice, totalPrice } =
+        calcPrice(updatedCartItems);
       cartStore.setState({
-        items: updatedItems,
+        items: updatedCartItems,
         itemsPrice,
         taxPrice,
         shippingPrice,
@@ -81,11 +81,11 @@ export default function useCartService() {
 
 const calcPrice = (items: OrderItem[]) => {
   const itemsPrice = round2(
-    items.reduce((a, c) => a + c.quantity * c.price, 0)
-  );
-  const taxPrice = round2(Number(itemsPrice * 0.15));
-  const shippingPrice = round2(itemsPrice > 100 ? 0 : 100);
-  const totalPrice = round2(itemsPrice + taxPrice + shippingPrice);
+      items.reduce((a, c) => a + c.quantity * c.price, 0)
+    ),
+    shippingPrice = round2(itemsPrice > 100 ? 0 : 100),
+    taxPrice = round2(Number(itemsPrice * 0.15)),
+    totalPrice = round2(itemsPrice + taxPrice + shippingPrice);
 
   return {
     itemsPrice,
