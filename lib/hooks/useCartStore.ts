@@ -41,24 +41,51 @@ export default function useCartService() {
           )
         : [...items, { ...item, quantity: 1 }];
 
+      calcPrice(updatedItems);
+      cartStore.setState({
+        items: updatedItems,
+        itemsPrice,
+        taxPrice,
+        shippingPrice,
+        totalPrice,
+      });
+    },
+    decrease: (item: OrderItem) => {
+      const existItem = items.find((x) => x.slug === item.slug);
+      if (!existItem) return;
+
+      const updatedItems =
+        existItem.quantity === 1
+          ? items.filter((x) => x.slug !== item.slug)
+          : items.map((x) =>
+              item.slug ? { ...existItem, quantity: existItem.quantity - 1 } : x
+            );
+
+      const { itemsPrice, taxPrice, shippingPrice, totalPrice } =
         calcPrice(updatedItems);
-        cartStore.setState({ items: updatedItems, itemsPrice, taxPrice, shippingPrice, totalPrice });
+      cartStore.setState({
+        items: updatedItems,
+        itemsPrice,
+        taxPrice,
+        shippingPrice,
+        totalPrice,
+      });
     },
   };
 }
 
 const calcPrice = (items: OrderItem[]) => {
-    const itemsPrice = round2(
-        items.reduce((a, c) => a + c.quantity * c.price, 0)
-    );
-    const taxPrice = round2(Number(itemsPrice * 0.15));
-    const shippingPrice = round2(itemsPrice > 100 ? 0 : 100);
-    const totalPrice = round2(itemsPrice + taxPrice + shippingPrice);
-    
-    return {
-        itemsPrice,
-        taxPrice,
-        shippingPrice,
-        totalPrice,
-    }
+  const itemsPrice = round2(
+    items.reduce((a, c) => a + c.quantity * c.price, 0)
+  );
+  const taxPrice = round2(Number(itemsPrice * 0.15));
+  const shippingPrice = round2(itemsPrice > 100 ? 0 : 100);
+  const totalPrice = round2(itemsPrice + taxPrice + shippingPrice);
+
+  return {
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+  };
 };
