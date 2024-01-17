@@ -1,5 +1,6 @@
 import ProductItem from "@/components/products/ProductItem";
 import productService from "@/lib/services/productService";
+import { convertDocToObj } from "@/lib/utils";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,7 +39,6 @@ export default async function Home() {
                   alt={product.name}
                   width={500}
                   height={500}
-                  layout="responsive"
                 />
 
               </Link>
@@ -68,7 +68,7 @@ export default async function Home() {
 
       <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4'>
         {
-          latestProducts.map((product) => <ProductItem product={product} key={product.slug} />)
+          latestProducts.map((product) => <ProductItem product={convertDocToObj(product)} key={product.slug} />)
         }
       </div>
     </>
