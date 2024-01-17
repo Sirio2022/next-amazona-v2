@@ -19,7 +19,7 @@ const Menu = () => {
                         Cart
                         {
                             mounted && items.length !== 0 && (
-                                <div className="badge badge-secondary">
+                                <div className="badge badge-accent">
                                     {
                                         items.reduce((acc, item) => acc + item.quantity, 0)
                                     }{' '}

@@ -34,11 +34,12 @@ export default async function Home() {
               <Link href={`/products/${product.slug}`}>
 
                 <Image
-                  className="w-full "
+                  className="w-full"
                   src={product.banner ?? ''}
                   alt={product.name}
-                  width={1000}
-                  height={500}
+                  width={1500}
+                  height={400}
+                  style={{ width: '100%', height: 'auto' }}
                 />
 
               </Link>
