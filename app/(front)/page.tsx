@@ -37,7 +37,7 @@ export default async function Home() {
                   className="w-full "
                   src={product.banner ?? ''}
                   alt={product.name}
-                  width={500}
+                  width={1000}
                   height={500}
                 />
 
