@@ -26,17 +26,6 @@ export async function generateMetadata({
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 export default async function ProductDetails({ params }: { params: { slug: string } }) {
 
 
