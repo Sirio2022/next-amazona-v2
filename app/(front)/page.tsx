@@ -21,7 +21,7 @@ export default async function Home() {
 
   return (
     <>
-      <div className="w-gull carousel rounded-box mt-4">
+      <div className="w-full carousel rounded-box mt-4">
 
         {
           featuredProducts.map((product, index) => (
@@ -39,13 +39,13 @@ export default async function Home() {
                   alt={product.name}
                   width={1500}
                   height={400}
-                  style={{ width: '100%', height: 'auto' }}
+
                 />
 
               </Link>
 
 
-              <div className="absolute flex justify-between transform-translate-y-1/2 left-5 right-5 top-1/2">
+              <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                 <a href={`#slide-${index === 0 ? featuredProducts.length - 1 : index - 1}`} className="btn btn-circle">
                   &#11160;
                 </a>
