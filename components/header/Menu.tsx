@@ -30,8 +30,8 @@ const Menu = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link className="btn btn-ghost rounded-btn" href='/login'>
-                        Login
+                    <Link className="btn btn-ghost rounded-btn" href='/signin'>
+                        Sign in
                     </Link>
                 </li>
             </ul>
