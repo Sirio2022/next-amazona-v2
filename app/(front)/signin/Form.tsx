@@ -1,5 +1,6 @@
 'use client'
 import { signIn, useSession } from "next-auth/react"
+import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import { useForm, SubmitHandler } from "react-hook-form"
@@ -130,6 +131,13 @@ export default function Form() {
                     </div>
 
                 </form>
+
+                <div>
+                    Need an account?{' '}
+                    <Link className="link" href={`/register?callbackUrl=${callbackUrl}`}>
+                        Register
+                    </Link>
+                </div>
 
 
             </div >
