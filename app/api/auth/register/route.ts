@@ -26,11 +26,13 @@ export const POST = async (request: NextRequest) => {
       { status: 201 }
     );
   } catch (error: any) {
-    return Response.json(
-      {
-        message: error.message,
-      },
-      { status: 500 }
-    );
+    if (error.code === 11000) {
+      return Response.json(
+        {
+          message: 'User already exists' || error.message,
+        },
+        { status: 400 }
+      );
+    }
   }
 };

@@ -1,5 +1,6 @@
 'use client'
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -67,14 +68,7 @@ export default function Form() {
         } catch (error: any) {
             toast.error(error.message || 'Something went wrong!')
         }
-
-
-
-
-
-
     };
-
 
 
     return (
@@ -178,6 +172,29 @@ export default function Form() {
                                 </div>
                             )
                         }
+                    </div>
+
+
+                    <div className="my-4">
+                        <button
+                            type="submit"
+                            className="btn btn-primary btn-block"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting && (
+                                <span className="loading loading-spinner"></span>
+                            )}
+                            Register
+                        </button>
+                    </div>
+
+                    <div className="divider"></div>
+
+                    <div>
+                        Already have an account?{' '}
+                        <Link className="link" href={`/signin?callbackUrl=${callbackUrl}`}>
+                            Sign in
+                        </Link>
                     </div>
                 </form>
 
