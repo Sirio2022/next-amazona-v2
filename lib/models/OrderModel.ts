@@ -9,9 +9,9 @@ export type OrderItem = {
 };
 
 export type ShippingAddress = {
-  fullName: string;
-  address: string;
-  city: string;
-  postalCode: string;
-  country: string;
+  fullName: string | undefined;
+  address: string | undefined;
+  city: string | undefined;
+  postalCode: string | undefined;
+  country: string | undefined;
 };
