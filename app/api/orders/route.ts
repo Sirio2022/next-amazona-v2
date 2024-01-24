@@ -7,15 +7,15 @@ import { round2 } from '@/lib/utils';
 const calcPrices = (orderItems: OrderItem[]) => {
   // Calculate the items price
   const itemsPrice = round2(
-    orderItems.reduce((a, c) => a + c.quantity * c.price, 0)
+    orderItems.reduce((acc, item) => acc + item.quantity * item.price, 0)
   );
+
   // Calculate the shipping price
   const shippingPrice = round2(itemsPrice > 100 ? 0 : 10);
   // Calculate the tax price
-  const taxPrice = Number(round2(0.15 * itemsPrice).toFixed(2));
+  const taxPrice = round2(Number((0.15 * itemsPrice).toFixed(2)));
   // Calculate the total price
   const totalPrice = round2(itemsPrice + shippingPrice + taxPrice);
-
   return {
     itemsPrice,
     shippingPrice,
@@ -32,7 +32,8 @@ export const POST = auth(async (req: any) => {
   const { user } = req.auth;
 
   try {
-    const payload = await req.body.json();
+    const payload = await req.json();
+
     await dbConnect();
 
     const dbProductPrices = await ProductModel.find(
@@ -42,12 +43,20 @@ export const POST = auth(async (req: any) => {
       'price'
     );
 
-    const dbOrderItems = payload.items.map((item: { _id: string }) => ({
-      ...item,
-      product: item._id,
-      price: dbProductPrices.find((x) => x._id === item._id)?.price,
-      _id: undefined,
-    }));
+    const dbOrderItems = payload.items.map((item: { _id: string }) => {
+      const dbProduct = dbProductPrices.find((x) => x._id === x._id);
+
+      if (!dbProduct) {
+        return Response.json({ message: 'Product not found' }, { status: 404 });
+      }
+
+      return {
+        ...item,
+        product: item._id,
+        price: dbProduct.price,
+        _id: undefined,
+      };
+    });
 
     const { itemsPrice, taxPrice, shippingPrice, totalPrice } =
       calcPrices(dbOrderItems);
@@ -75,4 +84,4 @@ export const POST = auth(async (req: any) => {
   } catch (error: any) {
     return Response.json({ message: error.message }, { status: 500 });
   }
-});
+}) as any;

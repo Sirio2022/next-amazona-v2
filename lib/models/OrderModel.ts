@@ -47,7 +47,7 @@ export default OrderModel;
 
 export type Order = {
   _id: string;
-  user?: { name: string; };
+  user?: { name: string };
   items: [OrderItem];
   shippingAddress: {
     fullName: string;
@@ -55,9 +55,9 @@ export type Order = {
     city: string;
     postalCode: string;
     country: string;
-  }
+  };
   paymentMethod: string;
-  paymentResult?: { id: string; status: string; email_address: string; };
+  paymentResult?: { id: string; status: string; email_address: string };
   itemsPrice: number;
   shippingPrice: number;
   taxPrice: number;
@@ -67,7 +67,7 @@ export type Order = {
   paidAt?: Date;
   deliveredAt?: Date;
   createdAt?: Date;
-}
+};
 
 export type OrderItem = {
   name: string;
