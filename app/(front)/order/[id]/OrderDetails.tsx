@@ -146,7 +146,7 @@ export default function OrderDetails({
                 </div>
 
                 <div>
-                    <div className="card bg-base-300">
+                    <div className="card bg-base-300 my-4 md:my-0 lg:my-0">
                         <div className="card-body">
                             <h2 className="card-title">
                                 Order Summary
