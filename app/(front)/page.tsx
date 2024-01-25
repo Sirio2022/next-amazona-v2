@@ -34,12 +34,11 @@ export default async function Home() {
               <Link href={`/products/${product.slug}`}>
 
                 <Image
-                  className="w-full"
+                  className="w-full md:h-96 object-cover rounded-box"
                   src={product.banner ?? ''}
                   alt={product.name}
                   width={1500}
                   height={400}
-
                 />
 
               </Link>
@@ -47,10 +46,10 @@ export default async function Home() {
 
               <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                 <a href={`#slide-${index === 0 ? featuredProducts.length - 1 : index - 1}`} className="btn btn-circle">
-                  &#11160;
+                &larr;
                 </a>
                 <a href={`#slide-${index === featuredProducts.length - 1 ? 0 : index + 1}`} className="btn btn-circle">
-                  &#11162;
+                &rarr;
                 </a>
               </div>
 
