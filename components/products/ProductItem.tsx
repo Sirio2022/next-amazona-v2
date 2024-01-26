@@ -1,6 +1,8 @@
 import { Product } from '@/lib/models/ProductModel'
+import { formatoMoneda } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import { format } from 'path'
 
 
 export default function ProductItem({ product }: { product: Product }) {
@@ -22,7 +24,7 @@ export default function ProductItem({ product }: { product: Product }) {
 
                 <div className='card-actions flex items-center justify-between'>
                     <span className='text-2xl'>
-                        ${product.price}
+                        {formatoMoneda(product.price)}
                     </span>{' '}
                 </div>
 

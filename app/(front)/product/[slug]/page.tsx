@@ -1,5 +1,5 @@
 import AddToCart from "@/components/products/AddToCart"
-import { convertDocToObj } from "@/lib/utils"
+import { convertDocToObj, formatoMoneda } from "@/lib/utils"
 import productService from "@/lib/services/productService"
 import Image from "next/image"
 import Link from "next/link"
@@ -85,7 +85,7 @@ export default async function ProductDetails({ params }: { params: { slug: strin
                                     Price
                                 </div>
                                 <div>
-                                    ${product.price}
+                                    {formatoMoneda(product.price)}
                                 </div>
 
                             </div>

@@ -106,6 +106,9 @@ export default function useCartService() {
     clear: () => {
       cartStore.setState(initialState);
     },
+    init: () => {
+      cartStore.setState(initialState);
+    },
   };
 }
 

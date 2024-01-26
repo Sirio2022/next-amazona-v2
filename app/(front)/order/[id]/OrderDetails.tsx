@@ -1,5 +1,6 @@
 'use client';
 import { OrderItem } from "@/lib/models/OrderModel";
+import { formatoMoneda } from "@/lib/utils";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useSession } from "next-auth/react"
 import Image from "next/image";
@@ -161,7 +162,7 @@ export default function OrderDetails({
                                                 {item.quantity}
                                             </td>
                                             <td>
-                                                ${item.price}
+                                                {formatoMoneda(item.price)}
                                             </td>
 
                                         </tr>
@@ -185,7 +186,7 @@ export default function OrderDetails({
                                 <li>
                                     <div className="mb-2 flex justify-between">
                                         <div>Items</div>
-                                        <div>${itemsPrice}</div>
+                                        <div>{formatoMoneda(itemsPrice)}</div>
                                     </div>
                                 </li>
 
@@ -195,7 +196,7 @@ export default function OrderDetails({
                                             Tax
                                         </div>
 
-                                        <div>${taxPrice}</div>
+                                        <div>{formatoMoneda(taxPrice)}</div>
 
                                     </div>
                                 </li>
@@ -203,14 +204,14 @@ export default function OrderDetails({
                                 <li>
                                     <div className="mb-2 flex justify-between">
                                         <div>Shipping</div>
-                                        <div>${shippingPrice}</div>
+                                        <div>{formatoMoneda(shippingPrice)}</div>
                                     </div>
                                 </li>
 
                                 <li>
                                     <div className="mb-2 flex justify-between">
                                         <div>Total</div>
-                                        <div>${totalPrice}</div>
+                                        <div>{formatoMoneda(totalPrice)}</div>
                                     </div>
                                 </li>
                                 {!isPaid && paymentMethod === 'PayPal' && (
