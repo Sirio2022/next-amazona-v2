@@ -1,9 +1,11 @@
 'use client';
 import { OrderItem } from "@/lib/models/OrderModel";
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useSession } from "next-auth/react"
 import Image from "next/image";
 import Link from "next/link";
-import useSWR from "swr"
+import toast from "react-hot-toast";
+import useSWR, { mutate } from "swr"
 
 
 export default function OrderDetails({
@@ -15,6 +17,33 @@ export default function OrderDetails({
 }) {
 
     const { data: session } = useSession()
+
+    async function createPaypalOrder() {
+        const res = await fetch(`/api/orders/${orderId}/create-paypal-order`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const order = await res.json();
+        return order.id;
+
+    }
+
+    async function onAppovePayPalOrder(data: any) {
+        const res = await fetch(`/api/orders/${orderId}/capture-paypal-order`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((res) => res.json())
+            .then((orderData) => {
+                toast.success('Order is paid successfully')
+                mutate(`/api/orders/${orderId}`, orderData)
+            })
+    }
 
     const { data, error } = useSWR(
         `/api/orders/${orderId}`,
@@ -42,6 +71,7 @@ export default function OrderDetails({
         isPaid,
         paidAt,
     } = data
+
 
     return (
         <div>
@@ -183,6 +213,20 @@ export default function OrderDetails({
                                         <div>${totalPrice}</div>
                                     </div>
                                 </li>
+                                {!isPaid && paymentMethod === 'PayPal' && (
+                                    <li>
+                                        <PayPalScriptProvider
+                                            options={{
+                                                clientId: paypalClientId,
+                                            }}
+                                        >
+                                            <PayPalButtons
+                                                createOrder={createPaypalOrder}
+                                                onApprove={onAppovePayPalOrder}
+                                            />
+                                        </PayPalScriptProvider>
+                                    </li>
+                                )}
                             </ul>
 
                         </div>
