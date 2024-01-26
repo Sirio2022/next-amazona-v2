@@ -34,7 +34,7 @@ export default async function Home() {
               <Link href={`/products/${product.slug}`}>
 
                 <Image
-                  className="w-full md:h-96 lg:h-auto object-cover rounded-box "
+                  className="w-full md:h-auto lg:h-auto object-cover rounded-box "
                   src={product.banner ?? ''}
                   alt={product.name}
                   width={1500}

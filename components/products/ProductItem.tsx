@@ -18,7 +18,7 @@ export default function ProductItem({ product }: { product: Product }) {
                     <h2 className='card-title cursor-pointer font-normal'>{product.name}</h2>
                 </Link>
 
-                <p className='card-text mb-2'>${product.brand}</p>
+                <p className='card-text mb-2'>{product.brand}</p>
 
                 <div className='card-actions flex items-center justify-between'>
                     <span className='text-2xl'>
