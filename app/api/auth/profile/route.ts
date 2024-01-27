@@ -52,4 +52,4 @@ export const PUT = auth(async (req: any) => {
       }
     );
   }
-});
+}) as any;
