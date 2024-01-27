@@ -1,6 +1,6 @@
 <h1>ECommerce By Next.js 14, App Router, Server Components and Actions</h1>
 <h2>
-Tech	Nextjs 13+, Server Components & Actions, Route Handler
+Tech:	Nextjs 14, Server Components & Actions, Route Handler
 <h2>
   UI:	Tailwind, DaisyUI, Chart.js
 </h2>
