@@ -36,35 +36,34 @@ export default function Form() {
     const formSubmit: SubmitHandler<Inputs> = async (form) => {
         const { name, email, password } = form
 
-        const res = await fetch('/api/auth/profile', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name,
-                email,
-                password
-            })
-        })
-        if (res.status === 200) {
-            toast.success('Profile updated successfully')
-            const newSession = {
-                ...session,
-                user: {
-                    ...session?.user,
-                    name,
-                    email
-                }
-            }
-            await update(newSession)
-            router.push('/')
-        } else {
-            const data = await res.json()
-            toast.error(data.message || 'Something went wrong')
-        }
-
         try {
+            const res = await fetch('/api/auth/profile', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
+            })
+            if (res.status === 200) {
+                toast.success('Profile updated successfully')
+                const newSession = {
+                    ...session,
+                    user: {
+                        ...session?.user,
+                        name,
+                        email
+                    }
+                }
+                await update(newSession)
+                router.push('/')
+            } else {
+                const data = await res.json()
+                toast.error(data.message || 'Something went wrong')
+            }
 
         } catch (error: any) {
             const fail = error.response && error.response.data.message ? error.response.data.message : error.message
@@ -104,12 +103,16 @@ export default function Form() {
                             Email
                         </label>
                         <input
-                            type="email"
+                            type="text"
                             id="email"
                             className="input input-bordered w-full max-w-sm"
                             placeholder="Email"
                             {...register('email', {
-                                required: 'Email is required'
+                                required: 'Email is required',
+                                pattern: {
+                                    value: /[a-z0-9+@[a-z]+\.[a-z]{2,3}/,
+                                    message: 'Invalid email address'
+                                }
                             })}
                         />
                         {errors.email?.message && (

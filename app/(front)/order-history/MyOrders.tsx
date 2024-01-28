@@ -34,7 +34,6 @@ export default function MyOrders() {
     return (
 
         <div className="overflow-x-auto">
-
             <table className="table">
                 <thead>
                     <tr>
@@ -79,8 +78,6 @@ export default function MyOrders() {
                                     </Link>
                                 </td>
                             </tr>
-
-
                         ))
                     }
                 </tbody>
