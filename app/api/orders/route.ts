@@ -4,6 +4,7 @@ import OrderModel, { OrderItem } from '@/lib/models/OrderModel';
 import ProductModel from '@/lib/models/ProductModel';
 import { round2 } from '@/lib/utils';
 
+
 const calcPrices = (orderItems: OrderItem[]) => {
   // Calculate the items price
   const itemsPrice = round2(

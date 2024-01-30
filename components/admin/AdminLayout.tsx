@@ -49,7 +49,7 @@ const AdminLayout = async ({
                                 href='/admin/orders'
                                 className={'orders' === activeItem ? 'active' : ''}
                             >
-                                Users
+                                Orders
                             </Link>
                         </li>
                         <li>
