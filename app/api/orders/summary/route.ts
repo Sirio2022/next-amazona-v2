@@ -42,6 +42,18 @@ export const GET = auth(async (...request: any) => {
     },
   ]);
 
+  const productsData = await ProductModel.aggregate([
+    {
+      $group: {
+        _id: '$category',
+        totalProducts: { $sum: 1 },
+      },
+    },
+    {
+      $sort: { _id: 1 },
+    },
+  ]);
+
   const usersData = await UserModel.aggregate([
     {
       $group: {
@@ -62,6 +74,7 @@ export const GET = auth(async (...request: any) => {
       ordersPrice,
       salesData,
       usersData,
+      productsData,
     },
     { status: 200 }
   );

@@ -32,7 +32,51 @@ const AdminLayout = async ({
     }
 
     return (
-        <></>
+        <div className='relative flex flex-grow'>
+            <div className='w-full grid md:grid-cols-5'>
+                <div className='bg-base-200'>
+                    <ul className='menu'>
+                        <li>
+                            <Link
+                                href='/admin/dashboard'
+                                className={'dashboard' === activeItem ? 'active' : ''}
+                            >
+                                Dashboard
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href='/admin/orders'
+                                className={'orders' === activeItem ? 'active' : ''}
+                            >
+                                Users
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href='/admin/products'
+                                className={'products' === activeItem ? 'active' : ''}
+                            >
+                                Products
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href='/admin/users'
+                                className={'users' === activeItem ? 'active' : ''}
+                            >
+                                Users
+                            </Link>
+                        </li>
+                    </ul>
+
+                </div>
+                <div className='md:col-span-4 px-4'>
+                    {children}
+                </div>
+
+            </div>
+        </div>
     )
 };
 
