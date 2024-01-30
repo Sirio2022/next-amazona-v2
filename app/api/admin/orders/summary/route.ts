@@ -7,7 +7,7 @@ import ProductModel from '@/lib/models/ProductModel';
 export const GET = auth(async (...request: any) => {
   const [req, { params }] = request;
 
-  if (!req.auth) {
+  if (!req.auth || !req.auth.user?.isAdmin) {
     return Response.json({ message: 'Unauthorized' }, { status: 401 });
   }
 

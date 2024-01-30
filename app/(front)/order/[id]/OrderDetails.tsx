@@ -1,12 +1,13 @@
 'use client';
 import { OrderItem } from "@/lib/models/OrderModel";
-import { formatoMoneda } from "@/lib/utils";
+import { formatearFecha, formatoMoneda } from "@/lib/utils";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useSession } from "next-auth/react"
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import useSWR, { mutate } from "swr"
+import useSWRMutation from "swr/mutation";
 
 
 export default function OrderDetails({
@@ -16,6 +17,21 @@ export default function OrderDetails({
     orderId: string
     paypalClientId: string
 }) {
+
+    const { trigger: deliverOrder, isMutating: isDelivering } = useSWRMutation(
+        `/api/admin/orders/${orderId}/deliver`, async (url) => {
+            const res = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+
+            }).then((res) => res.json()).then((orderData) => {
+                toast.success('Order is delivered successfully')
+                mutate(`/api/orders/${orderId}`, orderData)
+            })
+        },
+    )
 
     const { data: session } = useSession()
 
@@ -67,7 +83,7 @@ export default function OrderDetails({
         taxPrice,
         shippingPrice,
         totalPrice,
-        iseDelivered,
+        isDelivered,
         deliveredAt,
         isPaid,
         paidAt,
@@ -93,9 +109,9 @@ export default function OrderDetails({
                             <p>
                                 {shippingAddress.address}, {shippingAddress.city}, {shippingAddress.postalCode}, {shippingAddress.country}
                             </p>
-                            {iseDelivered ? (
+                            {isDelivered ? (
                                 <div className="text-success">
-                                    Delivered at {deliveredAt}
+                                    Delivered at {formatearFecha(deliveredAt)}
                                 </div>
                             ) : (
                                 <div className="text-error">
@@ -118,7 +134,7 @@ export default function OrderDetails({
                             </p>
                             {isPaid ? (
                                 <div className="text-success">
-                                    Paid at {paidAt}
+                                    Paid at {formatearFecha(paidAt)}
                                 </div>
                             ) : (
                                 <div className="text-error">
@@ -228,13 +244,32 @@ export default function OrderDetails({
                                         </PayPalScriptProvider>
                                     </li>
                                 )}
+                                {session?.user?.isAdmin && (
+                                    <li>
+                                        {deliveredAt ? (
+                                            <></>
+                                        ) : (
+                                            <button
+                                                className="btn btn-outline w-full my-2 "
+                                                onClick={() => deliverOrder()}
+                                                disabled={isDelivering}
+                                            >
+                                                {isDelivering && (
+                                                    <span
+                                                        className="loading loading-spinner"
+                                                    >
+                                                    </span>
+                                                )
+                                                }
+                                                Mark as delivered...
+                                            </button>
+                                        )}
+                                    </li>
+                                )}
                             </ul>
-
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
     )

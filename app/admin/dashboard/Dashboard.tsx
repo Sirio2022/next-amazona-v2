@@ -47,7 +47,7 @@ export const options = {
 };
 
 const Dashboard = () => {
-    const { data: summary, error } = useSWR('/api/orders/summary', async (url) => {
+    const { data: summary, error } = useSWR('/api/admin/orders/summary', async (url) => {
         const res = await fetch(url);
         return res.json();
     });
