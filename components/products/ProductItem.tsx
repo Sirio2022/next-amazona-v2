@@ -2,8 +2,6 @@ import { Product } from '@/lib/models/ProductModel'
 import { formatoMoneda } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
-import { format } from 'path'
-
 
 export default function ProductItem({ product }: { product: Product }) {
     return (

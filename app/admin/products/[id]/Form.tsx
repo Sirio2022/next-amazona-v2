@@ -1,7 +1,7 @@
 'use client'
 
 import useSWRMutation from "swr/mutation"
-import useSWR from "swr"
+import useSWR, { mutate } from "swr"
 import toast from "react-hot-toast"
 import Link from "next/link"
 import { ValidationRule, useForm } from "react-hook-form"
@@ -27,17 +27,15 @@ export default function ProductEditForm({ productId }: { productId: string }) {
                 },
                 body: JSON.stringify(arg)
             })
-            const data = await res.json()
-
-            if (!res.ok) {
-                return toast.error(data.message)
-            }
-
-            toast.success('Product updated successfully')
-            router.push('/admin/products')
+                .then(res => res.json())
+                .then((product) => {
+                    toast.success('Product updated successfully')
+                    mutate(`/api/admin/products/${productId}`, product)
+                    router.push('/admin/products')
+                })
         }
-
     )
+
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<Product>()
 

@@ -22,23 +22,35 @@ export const GET = auth(async (...args: any) => {
 }) as any;
 
 export const PUT = auth(async (...args: any) => {
-  const [req, { params, body }] = args;
+  const [req, { params }] = args;
 
   if (!req.auth || !req.auth.user?.isAdmin) {
     return Response.json({ message: 'Unauthorized' }, { status: 401 });
   }
 
+  const {
+    name,
+    slug,
+    price,
+    category,
+    image,
+    brand,
+    countInStock,
+    description,
+  } = await req.json();
+
   try {
     await dbConnect();
     const product = await ProductModel.findById(params.id);
     if (product) {
-      product.name = body.name;
-      product.price = body.price;
-      product.image = body.image;
-      product.brand = body.brand;
-      product.category = body.category;
-      product.countInStock = body.countInStock;
-      product.description = body.description;
+      product.name = name;
+      product.slug = slug;
+      product.price = price;
+      product.image = image;
+      product.brand = brand;
+      product.category = category;
+      product.countInStock = countInStock;
+      product.description = description;
       const updatedProduct = await product.save();
       return Response.json(updatedProduct);
     }
