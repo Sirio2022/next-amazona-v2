@@ -100,12 +100,10 @@ export default function Products() {
                                         href={`/admin/products/${product._id}`}
                                         type='button'
                                         className='btn btn-ghost btn-sm'
-
-
                                     >
                                         Edit
                                     </Link>
-                                    &nbsp;
+                                    {' '}
                                     <button
                                         type='button'
                                         onClick={() => deleteProduct({ productId: product._id! })}
