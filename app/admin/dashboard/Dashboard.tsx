@@ -18,7 +18,7 @@ import {
     BarElement,
     ArcElement
 } from 'chart.js';
-import exp from "constants";
+
 
 ChartJS.register(
     CategoryScale,

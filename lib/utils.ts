@@ -8,7 +8,12 @@ export function convertDocToObj(doc: any) {
 
 export const formatearFecha = (fecha: any) => {
   const fechaFormateada = new Date(fecha.split('T')[0].split('-'));
-  const options: Intl.DateTimeFormatOptions = {weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' };
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  };
   return fechaFormateada.toLocaleDateString('en-US', options);
 };
 
@@ -18,3 +23,7 @@ export function formatoMoneda(cantidad: any) {
     currency: 'USD',
   }).format(cantidad);
 }
+
+export const formatId = (id: any) => {
+  return `..${id.substring(20, 24)}`;
+};
