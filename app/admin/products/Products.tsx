@@ -2,7 +2,6 @@
 
 import { Product } from '@/lib/models/ProductModel';
 import { formatId } from '@/lib/utils';
-import { Span } from 'next/dist/trace';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';

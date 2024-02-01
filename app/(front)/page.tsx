@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+
 export const metadata: Metadata = {
   title: process.env.NEXT_PUBLIC_APP_NAME || 'Next.js Ecommerce',
   description: process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'Next.js Ecommerce, Typescript, Tailwind CSS, Daysy UI, Zustand, MongoDB, NextAuth.js',
@@ -15,9 +16,6 @@ export default async function Home() {
 
   const featuredProducts = await productService.getFeatured()
   const latestProducts = await productService.getLatest()
-
-
-
 
   return (
     <>

@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation"
 export default function ProductEditForm({ productId }: { productId: string }) {
     const { data: product, error } = useSWR<Product>(`/api/admin/products/${productId}`, async (url: string) => {
         const res = await fetch(url)
+
         return res.json()
     })
 
@@ -30,7 +31,8 @@ export default function ProductEditForm({ productId }: { productId: string }) {
                 .then(res => res.json())
                 .then((product) => {
                     toast.success('Product updated successfully')
-                    mutate(`/api/admin/products/${productId}`, product)
+                    mutate(`/api/admin/products/${productId}`, product, false) // Update the local cache without re-fetching
+                    mutate('/api/admin/products') // Update the products list
                     router.push('/admin/products')
                 })
         }
@@ -115,14 +117,14 @@ export default function ProductEditForm({ productId }: { productId: string }) {
             formData.append('signature', signature)
             formData.append('timestamp', timestamp)
             formData.append('api_key', process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY!)
-                        
+
             const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`, {
                 method: 'POST',
                 body: formData,
             })
             const data = await res.json()
             console.log(data);
-            
+
             setValue('image', data.secure_url)
             toast.success('Image uploaded successfully', { id: toastId })
         } catch (error: any) {
