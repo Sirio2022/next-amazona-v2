@@ -2,7 +2,7 @@ import { auth } from '@/lib/auth';
 import cloudinary from 'cloudinary';
 
 export const POST = auth(async (req: any) => {
-  if (!req.auth) {
+  if (!req.auth || !req.auth.user?.isAdmin) {
     return Response.json(
       {
         message: 'Unauthorized',
@@ -25,4 +25,4 @@ export const POST = auth(async (req: any) => {
     signature,
     timestamp,
   });
-});
+}) as any;

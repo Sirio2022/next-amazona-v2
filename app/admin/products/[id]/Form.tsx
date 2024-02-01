@@ -89,6 +89,47 @@ export default function ProductEditForm({ productId }: { productId: string }) {
 
     )
 
+    const uploadHandler = async (e: any) => {
+        const toastId = toast.loading('Uploading image...')
+
+        try {
+            const resSign = await fetch('/api/cloudinary-sign', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    timestamp: Date.now()
+                })
+            })
+
+
+
+            const { signature, timestamp } = await resSign.json()
+
+            const file = e.target.files[0]
+
+            const formData = new FormData()
+
+            formData.append('file', file)
+            formData.append('signature', signature)
+            formData.append('timestamp', timestamp)
+            formData.append('api_key', process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY!)
+                        
+            const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`, {
+                method: 'POST',
+                body: formData,
+            })
+            const data = await res.json()
+            console.log(data);
+            
+            setValue('image', data.secure_url)
+            toast.success('Image uploaded successfully', { id: toastId })
+        } catch (error: any) {
+            toast.error(error.message, { id: toastId })
+        }
+    }
+
     return (
         <div>
             <h1 className="text-2xl py-4">
@@ -104,6 +145,17 @@ export default function ProductEditForm({ productId }: { productId: string }) {
                     <FormInput id='slug' name='Slug' required />
                     <FormInput id='price' name='Price' required />
                     <FormInput id='image' name='Image' required />
+                    <div className="md:flex mb-6">
+                        <label htmlFor="imageFile" className="label md:w-1/5">Upload Image</label>
+                        <div className="md:w-4/5">
+                            <input
+                                type="file"
+                                className="input input-bordered w-full max-w-md"
+                                id="imageFile"
+                                onChange={uploadHandler}
+                            />
+                        </div>
+                    </div>
                     <FormInput id='category' name='Category' required />
                     <FormInput id='brand' name='Brand' required />
                     <FormInput id='countInStock' name='Count In Stock' required />
