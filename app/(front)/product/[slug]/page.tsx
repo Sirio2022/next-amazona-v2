@@ -3,6 +3,7 @@ import { convertDocToObj, formatoMoneda } from "@/lib/utils"
 import productService from "@/lib/services/productService"
 import Image from "next/image"
 import Link from "next/link"
+import { Rating } from "@/components/products/Rating"
 
 
 export async function generateMetadata({
@@ -54,7 +55,7 @@ export default async function ProductDetails({ params }: { params: { slug: strin
                             <h1 className="text-2xl font-bold">{product.name}</h1>
                         </li>
                         <li>
-                            {product.rating} of {product.numReviews} reviews
+                            <Rating value={product.rating} caption={`${product.numReviews} reviews`} />
                         </li>
                         <li>
                             {product.brand}

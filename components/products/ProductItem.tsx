@@ -2,6 +2,7 @@ import { Product } from '@/lib/models/ProductModel'
 import { formatoMoneda } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Rating } from './Rating'
 
 export default function ProductItem({ product }: { product: Product }) {
     return (
@@ -17,6 +18,8 @@ export default function ProductItem({ product }: { product: Product }) {
                 <Link href={`/product/${product.slug}`}>
                     <h2 className='card-title cursor-pointer font-normal'>{product.name}</h2>
                 </Link>
+
+                <Rating value={product.rating} caption={`${product.numReviews} reviews`} />
 
                 <p className='card-text mb-2'>{product.brand}</p>
 
