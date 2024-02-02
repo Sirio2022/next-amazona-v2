@@ -2,7 +2,6 @@ import Link from 'next/link'
 import Menu from './Menu'
 import { SearchBox } from './SearchBox'
 
-
 export default function Header() {
     return (
         <header>
