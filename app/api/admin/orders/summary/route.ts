@@ -66,13 +66,16 @@ export const GET = auth(async (...request: any) => {
     },
   ])) as any;
 
-  return Response.json({
-    ordersCount,
-    usersCount,
-    productsCount,
-    ordersPrice,
-    salesData,
-    usersData,
-    productsData,
-  });
+  return Response.json(
+    {
+      ordersCount,
+      usersCount,
+      productsCount,
+      ordersPrice,
+      salesData,
+      usersData,
+      productsData,
+    },
+    { status: 200 }
+  );
 }) as any;
