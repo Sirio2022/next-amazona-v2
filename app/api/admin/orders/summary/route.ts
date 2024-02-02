@@ -17,19 +17,19 @@ export const GET = auth(async (...request: any) => {
   const usersCount = await UserModel.countDocuments();
   const productsCount = await ProductModel.countDocuments();
 
-  const ordersPriceGroup = await OrderModel.aggregate([
+  const ordersPriceGroup = (await OrderModel.aggregate([
     {
       $group: {
         _id: null,
         sales: { $sum: '$totalPrice' },
       },
     },
-  ]);
+  ])) as any;
 
   const ordersPrice =
     ordersPriceGroup.length > 0 ? ordersPriceGroup[0].sales : 0;
 
-  const salesData = await OrderModel.aggregate([
+  const salesData = (await OrderModel.aggregate([
     {
       $group: {
         _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
@@ -40,9 +40,9 @@ export const GET = auth(async (...request: any) => {
     {
       $sort: { _id: 1 },
     },
-  ]);
+  ])) as any;
 
-  const productsData = await ProductModel.aggregate([
+  const productsData = (await ProductModel.aggregate([
     {
       $group: {
         _id: '$category',
@@ -52,9 +52,9 @@ export const GET = auth(async (...request: any) => {
     {
       $sort: { _id: 1 },
     },
-  ]);
+  ])) as any;
 
-  const usersData = await UserModel.aggregate([
+  const usersData = (await UserModel.aggregate([
     {
       $group: {
         _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
@@ -64,7 +64,7 @@ export const GET = auth(async (...request: any) => {
     {
       $sort: { _id: 1 },
     },
-  ]);
+  ])) as any;
 
   return Response.json(
     {
@@ -78,4 +78,4 @@ export const GET = auth(async (...request: any) => {
     },
     { status: 200 }
   );
-});
+}) as any;
