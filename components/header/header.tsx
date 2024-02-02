@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Menu from './Menu'
+import { SearchBox } from './SearchBox'
 
 
 export default function Header() {
@@ -29,6 +30,9 @@ export default function Header() {
                         </Link>
                     </div>
                     <Menu />
+                </div>
+                <div className='bg-base-300 block md:hidden text-center pb-3'>
+                    <SearchBox />
                 </div>
             </nav>
         </header>
