@@ -30,5 +30,12 @@ const config: Config = {
     ],
   },
   darkMode: ['class', '["dark"]'],
+  theme: {
+    extend: {
+      width: {
+        'custom': 'calc(100% - 0.5rem)',
+      },
+    }
+  }
 };
 export default config;

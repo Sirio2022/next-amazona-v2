@@ -25,7 +25,7 @@ export default function Header() {
                             </svg>
                         </label>
                         <Link href='/' className='btn btn-ghost text-lg'>
-                            Amazing Ecommerce
+                             Ecommerce
                         </Link>
                     </div>
                     <Menu />
