@@ -150,7 +150,7 @@ export default function Form() {
                                                     />
 
                                                     <span className="px-2">
-                                                        {item.name} ({item.color} {item.size})
+                                                        {item.name} {item.color} {item.size}
                                                     </span>
 
                                                 </Link>
