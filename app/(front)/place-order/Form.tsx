@@ -187,7 +187,9 @@ export default function Form() {
                             <ul className="space-y-3">
                                 <li>
                                     <div className="flex justify-between">
-                                        <div>Items</div>
+                                        <div>
+                                            {items.length} Items
+                                        </div>
                                         <div>${itemsPrice.toFixed(2)}</div>
                                     </div>
                                 </li>
