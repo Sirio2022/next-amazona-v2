@@ -30,8 +30,6 @@ export default function OrderDetails({
             res.ok ?
                 mutate(`/api/orders/${orderId}`, data) :
                 toast.error(data.message)
-
-
         },
     )
 
