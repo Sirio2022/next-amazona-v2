@@ -28,7 +28,7 @@ export default function OrderDetails({
 
             }).then((res) => res.json()).then((orderData) => {
                 toast.success('Order is delivered successfully')
-                mutate(`/api/orders/${orderId}`, orderData)
+                mutate(`/api/admin/orders/${orderId}`, orderData)
             })
         },
     )
