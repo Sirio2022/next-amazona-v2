@@ -54,12 +54,14 @@ export default function OrderDetails({
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
-        })
-            .then((res) => res.json())
-            .then((orderData) => {
-                toast.success('Order is paid successfully')
-                mutate(`/api/orders/${orderId}`, orderData)
-            })
+        });
+        const order = await res.json();
+        if (res.ok) {
+            mutate(`/api/orders/${orderId}`, order);
+            toast.success('Order is paid');
+        } else {
+            toast.error(order.message);
+        }
     }
 
     const { data, error } = useSWR(
