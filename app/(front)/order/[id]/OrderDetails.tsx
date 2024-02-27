@@ -25,11 +25,13 @@ export default function OrderDetails({
                 headers: {
                     'Content-Type': 'application/json',
                 },
-
-            }).then((res) => res.json()).then((orderData) => {
-                toast.success('Order is delivered successfully')
-                mutate(`/api/admin/orders/${orderId}`, orderData)
             })
+            const data = await res.json()
+            res.ok ?
+                mutate(`/api/orders/${orderId}`, data) :
+                toast.error(data.message)
+
+
         },
     )
 
