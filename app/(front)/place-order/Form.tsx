@@ -150,7 +150,7 @@ export default function Form() {
                                                     />
 
                                                     <span className="px-2">
-                                                        {item.name} {item.color} {item.size}
+                                                        {item.name} ({item.color} {item.size})
                                                     </span>
 
                                                 </Link>
@@ -187,9 +187,7 @@ export default function Form() {
                             <ul className="space-y-3">
                                 <li>
                                     <div className="flex justify-between">
-                                        <div>
-                                            {items.length} Items
-                                        </div>
+                                        <div>Items</div>
                                         <div>${itemsPrice.toFixed(2)}</div>
                                     </div>
                                 </li>
